@@ -18,7 +18,7 @@ def classify_drawing(drawing_image):
     num_classes = 3  # Set the number of classes
     # Initialize your model class
     model = ShapeClassifier(num_classes=num_classes)
-    model.load_state_dict(torch.load('model.pth'))
+    model.load_state_dict(torch.load('model.pth', map_location=torch.device('cpu')))
     model.eval()  # Set the model to evaluation mode
 
     # Convert the drawing to a grayscale image
