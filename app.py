@@ -47,4 +47,4 @@ iface = gr.Interface(
     live=True,
     capture_session=True,
 )
-iface.launch(server_port=8111)
+iface.launch(server_port=7860)
