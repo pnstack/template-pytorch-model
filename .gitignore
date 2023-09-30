@@ -163,3 +163,6 @@ cython_debug/
 # ignore dataset but not the folder
 data/raw/*
 data/processed/*
+
+!data/raw/.gitkeep
+!data/processed/.gitkeep
