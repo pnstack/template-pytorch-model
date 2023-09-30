@@ -27,7 +27,7 @@ def classify_drawing(drawing_image):
     drawing_tensor = data_transform(Image.fromarray(drawing))
 
     # save all the drawing to a folder draw with index
-    Image.fromarray(drawing).save(f'draw/{len(os.listdir("draw"))}.png')
+    # Image.fromarray(drawing).save(f'draw/{len(os.listdir("draw"))}.png')
 
     # Perform inference
     with torch.no_grad():
