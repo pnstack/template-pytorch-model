@@ -1,10 +1,10 @@
 ---
-title: {{title}}
-emoji: {{emoji}}
-colorFrom: {{colorFrom}}
-colorTo: {{colorTo}}
-sdk: {{sdk}}
-sdk_version: {{sdkVersion}}
+title: README
+emoji: 📝
+colorFrom: blue
+colorTo: yellow
+sdk: gradio
+sdk_version: 3.45.2
 app_file: app.py
 pinned: false
 ---
