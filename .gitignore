@@ -163,11 +163,14 @@ cython_debug/
 # ignore dataset but not the folder
 data/raw/*
 data/processed/*
+results/models/*
 
 !data/raw/.gitkeep
 !data/processed/.gitkeep
+!results/models/.gitkeep
 
-uvenv/
+# tensorboard logs
 runs/
+
+# wandb logs
 wandb/
-ubuntu-venv/
