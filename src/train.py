@@ -1,51 +1,40 @@
 import torch
 import torch.optim as optim
 import torch.nn.functional as F
-from .models.model import ShapeClassifier
+from src.models.model import ShapeClassifier
 
 from src.configs.model_config import ModelConfig
 from src.data.data_loader import train_loader, num_classes
+from src.utils.logs import writer
+from src.utils.train import train
+from src.utils.test import test
+import wandb
+import json
+wandb.init(project="template-pytorch-model", entity="nguyen")
 
 
-def train():
+def train_runner():
+
     config = ModelConfig().get_config()
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model = ShapeClassifier(num_classes=num_classes).to(device)
     optimizer = optim.Adam(model.parameters(), lr=config.learning_rate)
     log_interval = 20
+    # log models config to wandb
+    wandb.config.update(config)
+
     for epoch in range(config.epochs):
-        model.train()
-        running_loss = 0.0
+        print(f"Epoch {epoch+1}\n-------------------------------")
 
-        for batch_idx, (inputs, labels) in enumerate(train_loader):
-            inputs, labels = inputs.to(device), labels.to(device)
-            optimizer.zero_grad()
+        loss = train(train_loader, model=model, loss_fn=F.cross_entropy,
+                     optimizer=optimizer)
+        test(train_loader, model=model, loss_fn=F.cross_entropy)
+        # 3. Log metrics over time to visualize performance
+        wandb.log({"loss": loss})
 
-            outputs = model(inputs)
-            loss = F.cross_entropy(outputs, labels)
-            loss.backward()
-            optimizer.step()
+        # save model
+        torch.save(model.state_dict(), "model.pth")
 
-            running_loss += loss.item()
-
-            if batch_idx % log_interval == 0:
-                current_loss = running_loss / log_interval
-                print(
-                    f"Epoch [{epoch + 1}/{config.epochs}], Batch [{batch_idx + 1}/{len(train_loader)}], Loss: {current_loss:.4f}")
-                running_loss = 0.0
-
-                # calculate the accuracy on the test set
-
-                with torch.no_grad():
-                    model.eval()
-                    correct = 0
-                    total = 0
-                    for inputs, labels in train_loader:
-                        inputs, labels = inputs.to(device), labels.to(device)
-                        outputs = model(inputs)
-                        predicted = torch.argmax(outputs.data, 1)
-                        total += labels.size(0)
-                        correct += (predicted == labels).sum().item()
-                    print(f"Accuracy of the model on the test images: {100 * correct / total} %")
-                # save the model
-                torch.save(model.state_dict(), "model.pth")
+        # 4. Log an artifact to W&B
+        wandb.log_artifact("model.pth")
+        # model.train()

@@ -7,7 +7,8 @@ import os
 num_classes = 3
 config = ModelConfig().get_config()
 
-train_dataset = CustomDataset(data_folder=os.path.join("data", 'raw'), transform=data_transform)
+train_dataset = CustomDataset(data_folder=os.path.join(
+    "data", 'raw'), transform=data_transform)
 
 # # Calculate the split point
 # split_index = int(0.8 * len(dataset))
@@ -17,5 +18,11 @@ train_dataset = CustomDataset(data_folder=os.path.join("data", 'raw'), transform
 # test_dataset = dataset[split_index:]
 
 
-train_loader = DataLoader(train_dataset, batch_size=config.batch_size, shuffle=True)
+train_loader = DataLoader(
+    train_dataset, batch_size=config.batch_size, shuffle=True)
+
+
+def get_train_dataset(batch_size):
+    return DataLoader(
+        train_dataset, batch_size=batch_size, shuffle=True)
 

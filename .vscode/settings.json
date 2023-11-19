@@ -1,0 +1,10 @@
+{
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.autopep8",
+
+  },
+  "jupyter.debugJustMyCode": false,
+  "debug.allowBreakpointsEverywhere": true,
+  
+  "python.formatting.provider": "none"
+}
