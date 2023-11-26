@@ -2,6 +2,7 @@ from .transform import data_transform
 from torch.utils.data import Dataset
 import os
 from PIL import Image
+import pandas as pd
 
 
 class CustomDataset(Dataset):
@@ -33,3 +34,16 @@ class CustomDataset(Dataset):
 
         return image, label
     
+# Create a CustomDataset class to represent the data
+class StockDataset(Dataset):
+    def __init__(self, data):
+        self.data =  data
+
+
+    def __len__(self):
+        return len(self.data)
+
+    def __getitem__(self, idx):
+        features = self.data.iloc[idx]
+        labels = features['Close']  # Target is the next day's closing price
+        return features, labels

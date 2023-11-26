@@ -10,10 +10,12 @@ class ModelConfig:
         self.log_interval = 2  # Log every 2 batches => number of items is 32*2 = 64
         
         # Wandb config
-        self.wandb = True
+        self.wandb = False
         self.wandb_project = "template-pytorch-model"
         self.wandb_entity = "nguyen"
         self.wandb_api_key = ""
 
     def get_config(self):
         return self
+
+configs = ModelConfig()
