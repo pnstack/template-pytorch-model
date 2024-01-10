@@ -67,7 +67,7 @@ fsspec==2023.4.0
 ftfy==6.1.1
 future==0.18.3
 gitdb==4.0.11
-GitPython==3.1.40
+GitPython==3.1.41
 glob2==0.7
 google-api-core==2.11.0
 google-auth==2.23.4
