@@ -26,7 +26,7 @@ colorama==0.4.6
 coloredlogs==15.0.1
 comm==0.2.0
 contourpy==1.1.1
-cryptography==41.0.4
+cryptography==42.0.0
 cycler==0.12.1
 dacite==1.7.0
 darkdetect==0.8.0
