@@ -2,6 +2,7 @@ from .transform import data_transform
 from torch.utils.data import Dataset
 import os
 from PIL import Image
+from torchvision.io import read_image
 
 
 class CustomDataset(Dataset):
@@ -20,10 +21,10 @@ class CustomDataset(Dataset):
 
         image_path = os.path.join(self.data_folder, image_name)
         image = Image.open(image_path).convert("RGB")  # Ensure images are RGB
-
+        
         if self.transform:
             image = self.transform(image)
-        # print("label: ", label, image)
+
         if label == "circle":
             label = 0
         elif label == "square":

@@ -9,8 +9,7 @@ from torch.utils.data import random_split
 num_classes = 3
 config = ModelConfig().get_config()
 
-all_dataset = CustomDataset(data_folder=os.path.join(
-    "data", 'raw'), transform=data_transform)
+all_dataset = CustomDataset(data_folder=config.data_dir, transform=data_transform)
 
 # split to train, val, test
 total_size = len(all_dataset)
