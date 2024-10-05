@@ -5,8 +5,8 @@ import random
 
 # Define the folder structure
 output_folder = "./data/raw"
-shapes = ['circle', 'rectangle', 'triangle']
-num_images = 100  # Adjust the number of images per shape
+shapes = ['circle', 'square', 'triangle']
+num_images = 1000  # Adjust the number of images per shape
 
 # Ensure the directory exists
 os.makedirs(output_folder, exist_ok=True)
