@@ -3,6 +3,7 @@ import torch
 import numpy as np
 from PIL import Image
 from torchvision.transforms import functional as F
+from src.configs.model_config import ModelConfig
 from src.models.model import ShapeClassifier  # Import your model class
 from torchvision import transforms
 import os
@@ -10,6 +11,8 @@ from src.data.transform import data_transform
 
 
 def classify_drawing(drawing_image):
+    config = ModelConfig().get_config()
+
     # return null if no drawing is provided
     if drawing_image is None:
         return None
@@ -18,13 +21,14 @@ def classify_drawing(drawing_image):
     num_classes = 3  # Set the number of classes
     # Initialize your model class
     model = ShapeClassifier(num_classes=num_classes)
-    model.load_state_dict(torch.load('results/models/model.pth', map_location=torch.device('cpu')))
+    model.load_state_dict(torch.load(
+        'results/models/last.pth', map_location=config.device))
     model.eval()  # Set the model to evaluation mode
 
     # Convert the drawing to a grayscale image
     drawing = np.array(drawing_image)
 
-    drawing_tensor = data_transform(Image.fromarray(drawing))
+    drawing_tensor = data_transform(drawing)
 
     # save all the drawing to a folder draw with index
     # Image.fromarray(drawing).save(f'draw/{len(os.listdir("draw"))}.png')
