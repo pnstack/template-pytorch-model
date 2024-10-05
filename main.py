@@ -1,5 +1,3 @@
-
-
 import torch
 import torch.optim as optim
 import torch.nn.functional as F
@@ -17,7 +15,9 @@ from src.utils.model import save_model
 def main():
 
     config = ModelConfig().get_config()
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+    device = config.device
+
     model = ShapeClassifier(num_classes=num_classes).to(device)
     optimizer = optim.Adam(model.parameters(), lr=config.learning_rate)
     # log models config to wandb
